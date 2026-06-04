@@ -2,3 +2,11 @@ node_modules
 dist
 .DS_Store
 *.local
+
+# 환경변수 (실제 키는 커밋하지 않음)
+.env
+.env.*
+!.env.example
+
+# Firebase Functions
+functions/node_modules

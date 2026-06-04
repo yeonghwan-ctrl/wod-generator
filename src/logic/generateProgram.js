@@ -1,6 +1,7 @@
 import { LIFT_BY_ID } from '../data/lifts.js'
 import { buildWeeks } from '../data/schemes.js'
 import { getWeeklySplit, SESSIONS } from '../data/templates.js'
+import { WARMUPS, genericWarmup } from '../data/warmups.js'
 import { roundWeight } from './roundWeight.js'
 
 // 선택한 종목의 "유효 1RM"을 구한다.
@@ -46,16 +47,20 @@ function distributeToDays(liftIds, daysPerWeek) {
   return days
 }
 
-// 모드별로 "요일 정의" 목록을 만든다. → [{ name?, liftIds }]
+// 모드별로 "요일 정의" 목록을 만든다. → [{ name?, liftIds, warmup }]
 function buildDayDefs({ mode, daysPerWeek, selectedLiftIds }) {
   if (mode === 'template') {
     return getWeeklySplit(daysPerWeek).map((sessionId) => ({
       name: SESSIONS[sessionId].name,
       liftIds: SESSIONS[sessionId].lifts,
+      warmup: WARMUPS[sessionId] || null,
     }))
   }
   const liftIds = selectedLiftIds.filter((id) => LIFT_BY_ID[id])
-  return distributeToDays(liftIds, daysPerWeek).map((ids) => ({ liftIds: ids }))
+  return distributeToDays(liftIds, daysPerWeek).map((ids) => {
+    const categories = ids.map((id) => LIFT_BY_ID[id]?.category).filter(Boolean)
+    return { liftIds: ids, warmup: ids.length ? genericWarmup(categories) : null }
+  })
 }
 
 // 메인 생성 함수 (순수 함수)
@@ -77,6 +82,7 @@ export function generateProgram({
     const days = dayDefs.map((def, di) => ({
       dayNo: di + 1,
       name: def.name,
+      warmup: def.warmup,
       items: def.liftIds.map((id) => buildItem(id, w, cycleWeeks, oneRMs, increment)).filter(Boolean),
     }))
     weeks.push({ weekNo: w + 1, note: w === cycleWeeks - 1 ? '디로드' : '', days })
