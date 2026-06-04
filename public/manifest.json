@@ -4,8 +4,8 @@
   "description": "1RM을 입력하면 퍼센트 기반 주간 훈련 프로그램을 자동으로 생성합니다.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#98cfff",
-  "theme_color": "#98cfff",
+  "background_color": "#0b0c0f",
+  "theme_color": "#0b0c0f",
   "icons": [
     {
       "src": "/barbell.svg",
