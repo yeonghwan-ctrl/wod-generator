@@ -914,14 +914,18 @@ select {
   padding: 24px 18px calc(24px + env(safe-area-inset-bottom));
 }
 .login {
-  background-image: radial-gradient(800px 600px at 50% -160px, rgba(94, 162, 255, 0.14), transparent 70%);
+  background-image: linear-gradient(rgba(16, 19, 26, 0.72), rgba(16, 19, 26, 0.92)),
+    url('/hero-lift.png');
+  background-size: cover;
+  background-position: center 15%;
 }
 .login-card {
   position: relative;
   width: 100%;
   max-width: 380px;
-  background: var(--surface);
-  border: 1px solid var(--border);
+  background: rgba(31, 36, 48, 0.82);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(94, 162, 255, 0.18);
   border-radius: 14px;
   padding: 30px 22px;
   box-shadow: var(--shadow-lg);
@@ -1085,9 +1089,16 @@ select {
 .home-hero {
   position: relative;
   border-radius: 14px;
-  padding: 26px 22px;
+  padding: 30px 22px 26px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
   color: #fff;
-  background: linear-gradient(135deg, #2a3142 0%, #1a1f2a 100%);
+  background-image: linear-gradient(90deg, rgba(16, 19, 26, 0.95) 0%, rgba(16, 19, 26, 0.6) 45%, rgba(16, 19, 26, 0.25) 100%),
+    url('/hero-lift.png');
+  background-size: cover;
+  background-position: right 20%;
   border: 1px solid var(--border);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
