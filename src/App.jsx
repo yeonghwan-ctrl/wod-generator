@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useAthlete } from './store/useAthlete.js'
 import { useAuth } from './store/useAuth.js'
 import { generateProgram } from './logic/generateProgram.js'
@@ -36,7 +36,12 @@ function UserBadge({ user, onLogout }) {
 export default function App() {
   const auth = useAuth()
   const { state, update, setOneRM, toggleLift, reset } = useAthlete()
-  const [view, setView] = useState('home') // TABS 의 id
+  const [view, setView] = useState('home') // TABS 의 id (+ 'login')
+
+  // 로그인 화면에서 로그인에 성공하면 자동으로 홈으로 복귀
+  useEffect(() => {
+    if (view === 'login' && auth.user) setView('home')
+  }, [view, auth.user])
 
   const program = useMemo(
     () =>
@@ -51,22 +56,9 @@ export default function App() {
     [state],
   )
 
-  // ── 인증 게이트 ──
-  if (auth.loading) {
-    return (
-      <div className="splash">
-        <div className="splash-inner">
-          <div className="brand-logo">
-            <img src="/barbell.svg" alt="" width="34" height="34" />
-          </div>
-          <p className="muted">불러오는 중…</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!auth.user) {
-    return <LoginView auth={auth} />
+  // 로그인은 선택 사항 — 로그인 화면은 헤더 버튼으로 진입(건너뛰기 가능)
+  if (view === 'login') {
+    return <LoginView auth={auth} onClose={() => setView('home')} />
   }
 
   return (
@@ -81,7 +73,13 @@ export default function App() {
             <p className="tagline">1RM 기반 주간 훈련 프로그램</p>
           </div>
           <div className="header-spacer" />
-          <UserBadge user={auth.user} onLogout={auth.logout} />
+          {auth.user ? (
+            <UserBadge user={auth.user} onLogout={auth.logout} />
+          ) : (
+            <button className="login-cta" onClick={() => setView('login')}>
+              로그인
+            </button>
+          )}
         </div>
         <nav className="tabs">
           {TABS.map((t) => (

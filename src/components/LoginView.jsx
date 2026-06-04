@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { authErrorMessage } from '../store/useAuth.js'
 import { isFirebaseConfigured } from '../firebase.js'
 
-export default function LoginView({ auth }) {
+export default function LoginView({ auth, onClose }) {
   const [mode, setMode] = useState('login') // 'login' | 'signup'
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -37,6 +37,11 @@ export default function LoginView({ auth }) {
   return (
     <div className="login">
       <div className="login-card">
+        {onClose && (
+          <button type="button" className="login-skip" onClick={onClose}>
+            건너뛰기 →
+          </button>
+        )}
         <div className="login-brand">
           <div className="brand-logo">
             <img src="/barbell.svg" alt="" width="30" height="30" />
@@ -115,7 +120,7 @@ export default function LoginView({ auth }) {
         </p>
 
         <p className="login-note">
-          계속 진행하면 서비스 이용약관 및 개인정보처리방침에 동의하는 것으로 간주됩니다.
+          로그인은 선택 사항입니다. 로그인하면 여러 기기에서 기록을 이어서 사용할 수 있어요.
         </p>
       </div>
     </div>
