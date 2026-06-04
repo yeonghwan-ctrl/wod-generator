@@ -17,6 +17,11 @@ export function useAuth() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
+    // Firebase 미설정 시(auth === null) 인증 없이 동작
+    if (!auth) {
+      setLoading(false)
+      return
+    }
     const unsub = onAuthStateChanged(auth, (u) => {
       setUser(u)
       setLoading(false)
@@ -24,14 +29,24 @@ export function useAuth() {
     return unsub
   }, [])
 
+  const requireAuth = () => {
+    if (!auth) {
+      throw new Error(
+        '로그인이 아직 설정되지 않았습니다. (배포 환경에 Firebase 환경변수를 등록해주세요)',
+      )
+    }
+  }
+
   // ── 구글 ──
   const signInWithGoogle = () => {
+    requireAuth()
     const provider = new GoogleAuthProvider()
     return signInWithPopup(auth, provider)
   }
 
   // ── 애플 ──
   const signInWithApple = () => {
+    requireAuth()
     const provider = new OAuthProvider('apple.com')
     provider.addScope('email')
     provider.addScope('name')
@@ -44,6 +59,7 @@ export function useAuth() {
   //   2) Cloud Function(VITE_KAKAO_FUNCTION_URL)에서 Firebase 커스텀 토큰 발급
   //   3) signInWithCustomToken 으로 Firebase 로그인
   const signInWithKakao = async () => {
+    requireAuth()
     const Kakao = window.Kakao
     const jsKey = import.meta.env.VITE_KAKAO_JS_KEY
     const fnUrl = import.meta.env.VITE_KAKAO_FUNCTION_URL
@@ -70,12 +86,16 @@ export function useAuth() {
   }
 
   // ── 이메일/비밀번호 ──
-  const signUpWithEmail = (email, password) =>
-    createUserWithEmailAndPassword(auth, email, password)
-  const signInWithEmail = (email, password) =>
-    signInWithEmailAndPassword(auth, email, password)
+  const signUpWithEmail = (email, password) => {
+    requireAuth()
+    return createUserWithEmailAndPassword(auth, email, password)
+  }
+  const signInWithEmail = (email, password) => {
+    requireAuth()
+    return signInWithEmailAndPassword(auth, email, password)
+  }
 
-  const logout = () => signOut(auth)
+  const logout = () => (auth ? signOut(auth) : Promise.resolve())
 
   return {
     user,

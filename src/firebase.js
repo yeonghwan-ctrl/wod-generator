@@ -1,5 +1,7 @@
 // Firebase 초기화
 // 설정값은 .env 의 VITE_FIREBASE_* 환경변수에서 읽는다 (.env.example 참고).
+// ⚠️ 환경변수가 없으면(예: 배포 환경에 키 미설정) Firebase 초기화를 건너뛴다.
+//    로그인은 선택 사항이므로, 설정이 없어도 앱은 정상 동작해야 한다.
 import { initializeApp } from 'firebase/app'
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth'
 
@@ -12,11 +14,20 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 }
 
-// 설정값이 비어 있으면(=.env 미작성) 친절히 알려준다.
+// 설정값이 있어야만 Firebase를 초기화한다(없으면 getAuth가 throw → 화면 전체 크래시).
 export const isFirebaseConfigured = Boolean(firebaseConfig.apiKey && firebaseConfig.projectId)
 
-const app = initializeApp(firebaseConfig)
-export const auth = getAuth(app)
+let auth = null
+if (isFirebaseConfigured) {
+  try {
+    const app = initializeApp(firebaseConfig)
+    auth = getAuth(app)
+    // 로그인 상태를 브라우저에 유지 (새로고침해도 로그인 유지)
+    setPersistence(auth, browserLocalPersistence).catch(() => {})
+  } catch (err) {
+    console.error('Firebase 초기화 실패:', err)
+    auth = null
+  }
+}
 
-// 로그인 상태를 브라우저에 유지 (새로고침해도 로그인 유지)
-setPersistence(auth, browserLocalPersistence).catch(() => {})
+export { auth }
