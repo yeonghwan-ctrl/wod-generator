@@ -1,4 +1,4 @@
-// HWPO 스타일 데일리 워밍업
+// W2P 데일리 워밍업
 // 각 훈련일의 "주 종목"에 맞춰 4단계로 몸을 준비한다.
 //   raise(체온 올리기) → mobility(가동성) → activation(활성화) → ramp(바벨 램프업)
 // blocks: [{ key, title, items: [{ name, dose }] }]

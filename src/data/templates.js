@@ -1,4 +1,4 @@
-// HWPO Lift 스타일 세션 템플릿
+// W2P 자동 구성 세션 템플릿
 // 각 세션 = 하루 훈련 = [테크닉/파워 변형 → 주 종목 → 풀 → 스쿼트/스트렝스 → 보조] 순서.
 // 1RM은 주 종목(스내치/클린/C&J/백스쿼트/데드 등)만 입력하면 나머지는 자동 환산된다.
 
@@ -29,7 +29,7 @@ export const SESSIONS = {
   },
 }
 
-// 주 훈련 횟수별 주간 분할 (HWPO 스타일 밸런스)
+// 주 훈련 횟수별 주간 분할 (W2P 균형 구성)
 export const WEEKLY_SPLITS = {
   2: ['snatchDay', 'cleanJerkDay'],
   3: ['snatchDay', 'cleanJerkDay', 'squatDay'],

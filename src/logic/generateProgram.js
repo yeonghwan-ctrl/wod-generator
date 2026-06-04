@@ -65,7 +65,7 @@ function buildDayDefs({ mode, daysPerWeek, selectedLiftIds }) {
 
 // 메인 생성 함수 (순수 함수)
 // 입력: { oneRMs, daysPerWeek, cycleWeeks, selectedLiftIds, increment, mode }
-//   mode: 'template'(HWPO 스타일 자동 구성) | 'custom'(직접 선택)
+//   mode: 'template'(W2P 자동 구성) | 'custom'(직접 선택)
 // 출력: { weeks: [ { weekNo, note, days: [ { dayNo, name?, items: [...] } ] } ] }
 export function generateProgram({
   oneRMs = {},

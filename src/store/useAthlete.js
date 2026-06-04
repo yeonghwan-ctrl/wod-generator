@@ -6,7 +6,7 @@ const STORAGE_KEY = 'boxlift.athlete.v1'
 
 const DEFAULT_STATE = {
   oneRMs: {}, // { liftId: 입력값(현재 단위 기준) }
-  mode: 'template', // 'template'(HWPO 스타일 자동 구성) | 'custom'(직접 선택)
+  mode: 'template', // 'template'(W2P 자동 구성) | 'custom'(직접 선택)
   selectedLiftIds: ['snatch', 'clean', 'backSquat', 'deadlift', 'frontSquat', 'pullUp'],
   daysPerWeek: 3,
   cycleWeeks: 4,

@@ -43,8 +43,8 @@ export default function OneRMForm({ state, update, setOneRM, toggleLift, reset, 
             className={isTemplate ? 'active' : ''}
             onClick={() => update({ mode: 'template' })}
           >
-            HWPO 스타일 자동 구성
-            <small>풀·박스·테크닉·보조까지 한 세션으로</small>
+            W2P 자동 구성
+            <small>올림픽·풀·스쿼트·보조를 한 세션에 균형 있게</small>
           </button>
           <button
             className={!isTemplate ? 'active' : ''}

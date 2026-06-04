@@ -1,6 +1,6 @@
 {
-  "name": "boxlift-functions",
-  "description": "Cloud Functions for BoxLift (Kakao login)",
+  "name": "w2p-functions",
+  "description": "Cloud Functions for W2P (Kakao login)",
   "engines": {
     "node": "20"
   },

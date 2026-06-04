@@ -69,7 +69,7 @@ export default function App() {
             <img src="/barbell.svg" alt="" width="26" height="26" />
           </div>
           <div>
-            <h1>BoxLift</h1>
+            <h1>W2P</h1>
             <p className="tagline">1RM 기반 주간 훈련 프로그램</p>
           </div>
           <div className="header-spacer" />

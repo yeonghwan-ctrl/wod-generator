@@ -1,11 +1,11 @@
 {
-  "name": "BoxLift — 역도/스트렝스 프로그램 생성기",
-  "short_name": "BoxLift",
+  "name": "W2P — 역도/스트렝스 프로그램 생성기",
+  "short_name": "W2P",
   "description": "1RM을 입력하면 퍼센트 기반 주간 훈련 프로그램을 자동으로 생성합니다.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f4f6f9",
-  "theme_color": "#f4f6f9",
+  "background_color": "#98cfff",
+  "theme_color": "#98cfff",
   "icons": [
     {
       "src": "/barbell.svg",

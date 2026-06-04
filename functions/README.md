@@ -1,4 +1,4 @@
-# BoxLift Cloud Functions (카카오 로그인)
+# W2P Cloud Functions (카카오 로그인)
 
 카카오는 Firebase가 기본 지원하지 않으므로, 카카오 토큰을 Firebase **커스텀 토큰**으로
 교환하는 함수(`kakaoLogin`)가 필요합니다.
