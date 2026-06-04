@@ -10,11 +10,11 @@ import InjuryView from './components/InjuryView.jsx'
 import LoginView from './components/LoginView.jsx'
 
 const TABS = [
-  { id: 'home', label: '홈' },
-  { id: 'input', label: '입력' },
-  { id: 'program', label: '프로그램' },
-  { id: 'stretching', label: '스트레칭' },
-  { id: 'injury', label: '부상예방' },
+  { id: 'home', label: '홈', icon: '🏠' },
+  { id: 'input', label: '입력', icon: '🏋️' },
+  { id: 'program', label: '프로그램', icon: '📋' },
+  { id: 'stretching', label: '스트레칭', icon: '🧘' },
+  { id: 'injury', label: '부상예방', icon: '🛡️' },
 ]
 
 function UserBadge({ user, onLogout }) {
@@ -81,17 +81,6 @@ export default function App() {
             </button>
           )}
         </div>
-        <nav className="tabs">
-          {TABS.map((t) => (
-            <button
-              key={t.id}
-              className={view === t.id ? 'active' : ''}
-              onClick={() => setView(t.id)}
-            >
-              {t.label}
-            </button>
-          ))}
-        </nav>
       </header>
 
       <main className="app-main">
@@ -118,6 +107,21 @@ export default function App() {
       <footer className="app-footer">
         퍼센트 기반 기본 스킴 · 데이터는 이 기기에만 저장됩니다 (localStorage)
       </footer>
+
+      <nav className="bottom-nav">
+        <div className="bottom-nav-inner">
+          {TABS.map((t) => (
+            <button
+              key={t.id}
+              className={view === t.id ? 'active' : ''}
+              onClick={() => setView(t.id)}
+            >
+              <span className="nav-icon">{t.icon}</span>
+              <span className="nav-label">{t.label}</span>
+            </button>
+          ))}
+        </div>
+      </nav>
     </div>
   )
 }
