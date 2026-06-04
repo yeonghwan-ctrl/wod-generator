@@ -20,16 +20,17 @@ export default function ProgramView({ program, state, onEdit }) {
 
   return (
     <div className="program">
-      <div className="program-top">
-        <div>
+      <div className="program-banner">
+        <button className="btn-ghost banner-edit" onClick={onEdit}>
+          ← 수정
+        </button>
+        <div className="banner-text">
+          <span className="banner-kicker">Work to PR</span>
           <h2>
             {state.cycleWeeks}주 사이클 · 주 {state.daysPerWeek}회
           </h2>
-          <p className="muted">1RM 대비 퍼센트 기반</p>
+          <p>1RM 대비 퍼센트 기반 프로그램</p>
         </div>
-        <button className="btn-ghost" onClick={onEdit}>
-          ← 수정
-        </button>
       </div>
 
       <div className="week-tabs">

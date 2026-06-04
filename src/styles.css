@@ -366,6 +366,64 @@ select {
 }
 
 /* ── Program ── */
+.program-banner {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  min-height: 150px;
+  padding: 18px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  background-image: linear-gradient(90deg, rgba(16, 19, 26, 0.92) 0%, rgba(16, 19, 26, 0.55) 55%, rgba(16, 19, 26, 0.2) 100%),
+    url('/hero-program.png');
+  background-size: cover;
+  background-position: right 22%;
+  animation: fadeInUp 0.35s ease both;
+}
+.program-banner::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--accent-grad);
+}
+.banner-text {
+  position: relative;
+  z-index: 1;
+  color: #fff;
+}
+.banner-kicker {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--accent-deep);
+}
+.program-banner h2 {
+  margin: 5px 0 2px;
+  font-size: 1.3rem;
+  font-weight: 900;
+  color: #fff;
+}
+.program-banner p {
+  margin: 0;
+  font-size: 0.78rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.banner-edit {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 2;
+  padding: 8px 13px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.25);
+}
 .program-top {
   display: flex;
   justify-content: space-between;
