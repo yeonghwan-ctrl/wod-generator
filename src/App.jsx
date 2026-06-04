@@ -35,7 +35,7 @@ function UserBadge({ user, onLogout }) {
 
 export default function App() {
   const auth = useAuth()
-  const { state, update, setOneRM, toggleLift, reset } = useAthlete()
+  const { state, update, setOneRM, toggleLift, reset } = useAthlete(auth.user)
   const [view, setView] = useState('home') // TABS 의 id (+ 'login')
 
   // 로그인 화면에서 로그인에 성공하면 자동으로 홈으로 복귀
