@@ -10,3 +10,7 @@ dist
 
 # Firebase Functions
 functions/node_modules
+
+# 작업 참고용 이미지(앱 자산 아님)
+image.png
+image*.png
