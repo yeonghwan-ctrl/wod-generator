@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAthlete } from './store/useAthlete.js'
+import { useWorkoutLog } from './store/useWorkoutLog.js'
 import { useAuth } from './store/useAuth.js'
 import { useI18n } from './i18n.jsx'
 import { generateProgram } from './logic/generateProgram.js'
@@ -8,12 +9,14 @@ import OneRMForm from './components/OneRMForm.jsx'
 import ProgramView from './components/ProgramView.jsx'
 import StretchingView from './components/StretchingView.jsx'
 import InjuryView from './components/InjuryView.jsx'
+import LogView from './components/LogView.jsx'
 import LoginView from './components/LoginView.jsx'
 
 const TABS = [
   { id: 'home', labelKey: 'tabHome', icon: '🏠' },
   { id: 'input', labelKey: 'tabInput', icon: '🏋️' },
   { id: 'program', labelKey: 'tabProgram', icon: '📋' },
+  { id: 'log', labelKey: 'tabLog', icon: '📈' },
   { id: 'stretching', labelKey: 'tabStretching', icon: '🧘' },
   { id: 'injury', labelKey: 'tabInjury', icon: '🛡️' },
 ]
@@ -38,6 +41,7 @@ export default function App() {
   const { t, toggle: toggleLang } = useI18n()
   const auth = useAuth()
   const { state, update, setOneRM, toggleLift, reset } = useAthlete(auth.user)
+  const log = useWorkoutLog(auth.user)
   const [view, setView] = useState('home') // TABS 의 id (+ 'login')
 
   // 로그인 화면에서 로그인에 성공하면 자동으로 홈으로 복귀
@@ -107,8 +111,14 @@ export default function App() {
           />
         )}
         {view === 'program' && (
-          <ProgramView program={program} state={state} onEdit={() => setView('input')} />
+          <ProgramView
+            program={program}
+            state={state}
+            onEdit={() => setView('input')}
+            onLog={log.addEntry}
+          />
         )}
+        {view === 'log' && <LogView log={log} state={state} setOneRM={setOneRM} />}
         {view === 'stretching' && <StretchingView />}
         {view === 'injury' && <InjuryView />}
       </main>

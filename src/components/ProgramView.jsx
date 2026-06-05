@@ -2,7 +2,7 @@ import { useState } from 'react'
 import DayCard from './DayCard.jsx'
 import { useI18n } from '../i18n.jsx'
 
-export default function ProgramView({ program, state, onEdit }) {
+export default function ProgramView({ program, state, onEdit, onLog }) {
   const { t } = useI18n()
   const [activeWeek, setActiveWeek] = useState(0)
 
@@ -48,7 +48,7 @@ export default function ProgramView({ program, state, onEdit }) {
 
       <div className="days-grid">
         {week.days.map((day) => (
-          <DayCard key={day.dayNo} day={day} unit={state.unit || 'kg'} />
+          <DayCard key={day.dayNo} day={day} unit={state.unit || 'kg'} onLog={onLog} />
         ))}
       </div>
     </div>

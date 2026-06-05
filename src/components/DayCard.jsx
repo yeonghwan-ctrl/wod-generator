@@ -45,7 +45,91 @@ function WarmupPanel({ warmup }) {
   )
 }
 
-export default function DayCard({ day, unit = 'kg' }) {
+// 운동 한 종목 + 그 자리에서 빠른 기록(처방값 프리필)
+function ExerciseRow({ it, unit, onLog }) {
+  const { t, tx } = useI18n()
+  const [open, setOpen] = useState(false)
+  const [done, setDone] = useState(false)
+  const [weight, setWeight] = useState(it.weight ?? '')
+  const [reps, setReps] = useState(it.reps ?? '')
+
+  const save = () => {
+    const ok = onLog?.({ liftId: it.liftId, weight, reps, unit })
+    if (ok) {
+      setDone(true)
+      setOpen(false)
+      setTimeout(() => setDone(false), 1500)
+    }
+  }
+
+  return (
+    <li className={`exercise cat-${it.category}`}>
+      <div className="ex-row">
+        <div className="ex-main">
+          <span className="ex-name">{tx(it, 'label')}</span>
+          <span className="ex-scheme">
+            {it.sets} × {it.reps}
+            {it.percent != null && <span className="ex-pct"> @ {it.percent}%</span>}
+          </span>
+        </div>
+        <div className="ex-weight">
+          {it.weight != null ? (
+            <>
+              <strong>{it.weight}</strong>
+              <span className="unit">{unit}</span>
+              {it.estimated && <span className="est" title={t.estTitle}>≈</span>}
+            </>
+          ) : (
+            <span className="muted">{t.bwRpe}</span>
+          )}
+        </div>
+        {onLog && (
+          <button
+            className={`ex-log-btn ${done ? 'done' : ''}`}
+            onClick={() => {
+              setWeight(it.weight ?? '')
+              setReps(it.reps ?? '')
+              setOpen((v) => !v)
+            }}
+            title={t.logBtn}
+          >
+            {done ? '✓' : open ? '×' : '＋'}
+          </button>
+        )}
+      </div>
+
+      {open && (
+        <div className="quick-log">
+          <label>
+            <span>{t.logWeight} ({unit})</span>
+            <input
+              type="number"
+              inputMode="decimal"
+              min="0"
+              value={weight}
+              onChange={(e) => setWeight(e.target.value)}
+            />
+          </label>
+          <label>
+            <span>{t.logReps}</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="1"
+              value={reps}
+              onChange={(e) => setReps(e.target.value)}
+            />
+          </label>
+          <button className="btn-primary quick-log-save" onClick={save}>
+            {t.logSave}
+          </button>
+        </div>
+      )}
+    </li>
+  )
+}
+
+export default function DayCard({ day, unit = 'kg', onLog }) {
   const { t, tx } = useI18n()
   if (!day.items.length) {
     return (
@@ -67,26 +151,7 @@ export default function DayCard({ day, unit = 'kg' }) {
 
       <ul className="exercise-list">
         {day.items.map((it) => (
-          <li key={it.liftId} className={`exercise cat-${it.category}`}>
-            <div className="ex-main">
-              <span className="ex-name">{tx(it, 'label')}</span>
-              <span className="ex-scheme">
-                {it.sets} × {it.reps}
-                {it.percent != null && <span className="ex-pct"> @ {it.percent}%</span>}
-              </span>
-            </div>
-            <div className="ex-weight">
-              {it.weight != null ? (
-                <>
-                  <strong>{it.weight}</strong>
-                  <span className="unit">{unit}</span>
-                  {it.estimated && <span className="est" title={t.estTitle}>≈</span>}
-                </>
-              ) : (
-                <span className="muted">{t.bwRpe}</span>
-              )}
-            </div>
-          </li>
+          <ExerciseRow key={it.liftId} it={it} unit={unit} onLog={onLog} />
         ))}
       </ul>
     </div>

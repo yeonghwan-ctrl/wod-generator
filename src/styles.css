@@ -556,12 +556,17 @@ select {
 }
 .exercise {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
   background: var(--surface-2);
   border-radius: 9px;
   padding: 10px;
   border-left: 3px solid var(--border);
+}
+.ex-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
 }
 .exercise.cat-olympic {
   border-left-color: var(--olympic);
@@ -1316,6 +1321,265 @@ select {
   line-height: 1.4;
 }
 
+/* ── Quick log (program day card) ── */
+.ex-log-btn {
+  flex: none;
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--accent);
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.ex-log-btn:hover {
+  border-color: var(--brand);
+}
+.ex-log-btn.done {
+  background: var(--brand);
+  color: #fff;
+  border-color: var(--brand);
+}
+.quick-log {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed var(--border);
+}
+.quick-log label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  flex: 1;
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+.quick-log input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+.quick-log-save {
+  flex: none;
+  padding: 9px 14px;
+}
+
+/* ── Log view ── */
+.logview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.logview-head h2 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+.log-add-btn {
+  padding: 8px 14px;
+  font-size: 0.85rem;
+}
+.log-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.log-field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.log-field-row {
+  display: flex;
+  gap: 12px;
+}
+.log-field-row .log-field {
+  flex: 1;
+}
+.log-form input,
+.log-form select {
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+/* PR summary */
+.pr-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.pr-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  box-shadow: var(--shadow);
+}
+.pr-lift {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+}
+.pr-value {
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin: 4px 0 2px;
+}
+.pr-value strong {
+  font-size: 1.5rem;
+  color: var(--accent-deep);
+}
+.pr-value .unit {
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.pr-sub {
+  font-size: 0.68rem;
+  color: var(--muted);
+}
+.pr-apply {
+  margin-top: 10px;
+  width: 100%;
+  padding: 7px;
+  font-size: 0.75rem;
+}
+.pr-apply:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* Trend chart */
+.trend-card {
+  margin-bottom: 20px;
+}
+.trend-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.trend-title {
+  font-weight: 800;
+  color: var(--accent-deep);
+}
+.trend-head select {
+  padding: 7px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-size: 0.85rem;
+}
+.trend-hint {
+  margin: 6px 0 0;
+}
+.sparkline .spark-line {
+  stroke: var(--brand);
+  stroke-width: 2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.sparkline .spark-area {
+  fill: var(--brand);
+  opacity: 0.12;
+}
+.sparkline .spark-dot {
+  fill: var(--accent-deep);
+}
+
+/* History list */
+.log-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.log-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.log-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.log-row-lift {
+  font-weight: 700;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.log-pr-badge {
+  background: var(--accent-grad);
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.log-row-sub {
+  font-size: 0.7rem;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.log-row-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: none;
+}
+.log-row-1rm {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent-deep);
+  white-space: nowrap;
+}
+.log-del {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+}
+.log-del:hover {
+  color: #e5484d;
+}
+
 /* ── Responsive ── */
 @media (max-width: 480px) {
   .settings-grid {
@@ -1326,5 +1590,11 @@ select {
   }
   .stretch-list {
     grid-template-columns: 1fr;
+  }
+  .pr-grid {
+    grid-template-columns: 1fr;
+  }
+  .bottom-nav button .nav-label {
+    font-size: 0.6rem;
   }
 }
