@@ -3,6 +3,7 @@ import { LIFTS, LIFT_BY_ID } from '../data/lifts.js'
 import { computePRs, prEntryIds, round1, todayLocal } from '../logic/prs.js'
 import { useI18n } from '../i18n.jsx'
 import Sparkline from './Sparkline.jsx'
+import ProgressionPanel from './ProgressionPanel.jsx'
 
 export default function LogView({ log, state, setOneRM }) {
   const { t, tx } = useI18n()
@@ -162,6 +163,15 @@ export default function LogView({ log, state, setOneRM }) {
           ))}
         </div>
       )}
+
+      {/* 자동 프로그레션 */}
+      <ProgressionPanel
+        entries={entries}
+        oneRMs={state.oneRMs}
+        unit={unit}
+        increment={state.increment}
+        setOneRM={setOneRM}
+      />
 
       {/* 추세 그래프 */}
       {trendLifts.length > 0 && (

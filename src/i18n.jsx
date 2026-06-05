@@ -189,6 +189,15 @@ export const UI = {
     exportPrint: '인쇄 / PDF',
     exportShare: '공유',
     exportCopied: '복사됨 ✓',
+    // 자동 프로그레션
+    progTitle: '다음 사이클 · 자동 프로그레션',
+    progDesc: '기록과 현재 1RM을 바탕으로 다음 사이클 1RM을 제안합니다.',
+    progApplyAll: '전체 적용',
+    progApply: '적용',
+    progApplied: '적용됨 ✓',
+    progPr: '기록 기반(새 PR)',
+    progInc: '점진적 증량',
+    progNone: '제안할 변경이 없습니다. 1RM을 입력하거나 기록을 추가해보세요.',
   },
   en: {
     // common / header
@@ -325,5 +334,14 @@ export const UI = {
     exportPrint: 'Print / PDF',
     exportShare: 'Share',
     exportCopied: 'Copied ✓',
+    // auto-progression
+    progTitle: 'Next cycle · Auto-progression',
+    progDesc: 'Suggested 1RMs for your next cycle, based on your records and current maxes.',
+    progApplyAll: 'Apply all',
+    progApply: 'Apply',
+    progApplied: 'Applied ✓',
+    progPr: 'From new PR',
+    progInc: 'Progressive bump',
+    progNone: 'No changes to suggest yet. Enter a 1RM or add records.',
   },
 }

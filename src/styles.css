@@ -1580,6 +1580,109 @@ select {
   color: #e5484d;
 }
 
+/* ── Auto-progression panel ── */
+.prog-card {
+  margin-bottom: 20px;
+  border: 1px solid var(--brand);
+  box-shadow: var(--glow);
+}
+.prog-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.prog-title {
+  margin: 0 0 3px;
+  font-size: 1rem;
+  color: var(--accent-deep);
+}
+.prog-desc {
+  margin: 0;
+  font-size: 0.74rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+.prog-apply-all {
+  flex: none;
+  padding: 8px 13px;
+  font-size: 0.8rem;
+}
+.prog-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.prog-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+.prog-row-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+.prog-lift {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+.prog-reason {
+  font-size: 0.66rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+.prog-reason.reason-progPr {
+  color: var(--accessory);
+}
+.prog-row-nums {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.prog-from {
+  color: var(--muted);
+}
+.prog-arrow {
+  color: var(--muted);
+}
+.prog-to {
+  font-weight: 800;
+  color: var(--accent-deep);
+}
+.prog-delta {
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+.prog-delta.up {
+  color: var(--accessory);
+}
+.prog-delta.down {
+  color: var(--strength);
+}
+.prog-apply {
+  flex: none;
+  padding: 7px 12px;
+  font-size: 0.76rem;
+}
+.prog-applied-note {
+  margin: 10px 0 0;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--accessory);
+}
+
 /* ── Start session button (day card) ── */
 .start-session-btn {
   width: 100%;
@@ -1913,5 +2016,11 @@ select {
   }
   .bottom-nav button .nav-label {
     font-size: 0.6rem;
+  }
+  .prog-row {
+    flex-wrap: wrap;
+  }
+  .prog-row .prog-apply {
+    margin-left: auto;
   }
 }
