@@ -10,6 +10,7 @@ import ProgramView from './components/ProgramView.jsx'
 import StretchingView from './components/StretchingView.jsx'
 import InjuryView from './components/InjuryView.jsx'
 import LogView from './components/LogView.jsx'
+import SessionView from './components/SessionView.jsx'
 import LoginView from './components/LoginView.jsx'
 
 const TABS = [
@@ -43,6 +44,7 @@ export default function App() {
   const { state, update, setOneRM, toggleLift, reset } = useAthlete(auth.user)
   const log = useWorkoutLog(auth.user)
   const [view, setView] = useState('home') // TABS 의 id (+ 'login')
+  const [session, setSession] = useState(null) // 진행 중인 세션(요일 객체) 또는 null
 
   // 로그인 화면에서 로그인에 성공하면 자동으로 홈으로 복귀
   useEffect(() => {
@@ -65,6 +67,18 @@ export default function App() {
   // 로그인은 선택 사항 — 로그인 화면은 헤더 버튼으로 진입(건너뛰기 가능)
   if (view === 'login') {
     return <LoginView auth={auth} onClose={() => setView('home')} />
+  }
+
+  // 세션 진행 모드 — 풀스크린 takeover
+  if (session) {
+    return (
+      <SessionView
+        day={session}
+        unit={state.unit || 'kg'}
+        onLog={log.addEntry}
+        onClose={() => setSession(null)}
+      />
+    )
   }
 
   const langBtn = (
@@ -116,6 +130,7 @@ export default function App() {
             state={state}
             onEdit={() => setView('input')}
             onLog={log.addEntry}
+            onStartSession={setSession}
           />
         )}
         {view === 'log' && <LogView log={log} state={state} setOneRM={setOneRM} />}

@@ -172,6 +172,23 @@ export const UI = {
     logApplied: '적용됨 ✓',
     logBtn: '기록',
     logTrendHint: '기록이 2개 이상인 종목의 추정 1RM 추세',
+    // 세션 진행 모드 / 타이머
+    startSession: '운동 시작',
+    sessFinish: '운동 완료',
+    sessRestTimer: '휴식 타이머',
+    sessStart: '시작',
+    sessPause: '일시정지',
+    sessReset: '리셋',
+    sessSetsDone: (d, total) => `${d} / ${total} 세트`,
+    sessAllDone: '오늘 운동 완료! 💪',
+    sessLogged: '기록됨 ✓',
+    sessSet: '세트',
+    sessClose: '닫기',
+    // 내보내기 / 공유
+    exportTitle: '내보내기',
+    exportPrint: '인쇄 / PDF',
+    exportShare: '공유',
+    exportCopied: '복사됨 ✓',
   },
   en: {
     // common / header
@@ -291,5 +308,22 @@ export const UI = {
     logApplied: 'Applied ✓',
     logBtn: 'Log',
     logTrendHint: 'Estimated-1RM trend for lifts with 2+ records',
+    // session mode / timer
+    startSession: 'Start session',
+    sessFinish: 'Finish',
+    sessRestTimer: 'Rest timer',
+    sessStart: 'Start',
+    sessPause: 'Pause',
+    sessReset: 'Reset',
+    sessSetsDone: (d, total) => `${d} / ${total} sets`,
+    sessAllDone: "Today's session done! 💪",
+    sessLogged: 'Logged ✓',
+    sessSet: 'Set',
+    sessClose: 'Close',
+    // export / share
+    exportTitle: 'Export',
+    exportPrint: 'Print / PDF',
+    exportShare: 'Share',
+    exportCopied: 'Copied ✓',
   },
 }

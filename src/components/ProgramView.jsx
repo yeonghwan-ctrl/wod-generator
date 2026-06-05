@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import DayCard from './DayCard.jsx'
 import { useI18n } from '../i18n.jsx'
+import { weekToText, shareOrCopy } from '../logic/exportProgram.js'
 
-export default function ProgramView({ program, state, onEdit, onLog }) {
-  const { t } = useI18n()
+export default function ProgramView({ program, state, onEdit, onLog, onStartSession }) {
+  const { t, tx } = useI18n()
   const [activeWeek, setActiveWeek] = useState(0)
+  const [copied, setCopied] = useState(false)
 
   const hasAnyLift = state.selectedLiftIds.length > 0
   if (!hasAnyLift) {
@@ -20,6 +22,16 @@ export default function ProgramView({ program, state, onEdit, onLog }) {
 
   const week = program.weeks[activeWeek] ?? program.weeks[0]
 
+  const handlePrint = () => window.print()
+  const handleShare = async () => {
+    const text = weekToText({ week, state, t, tx })
+    const didCopy = await shareOrCopy({ title: 'Linkup', text })
+    if (didCopy) {
+      setCopied(true)
+      setTimeout(() => setCopied(false), 1800)
+    }
+  }
+
   return (
     <div className="program">
       <div className="program-banner">
@@ -31,6 +43,16 @@ export default function ProgramView({ program, state, onEdit, onLog }) {
           <h2>{t.cycleSummary(state.cycleWeeks, state.daysPerWeek)}</h2>
           <p>{t.programSub}</p>
         </div>
+      </div>
+
+      <div className="export-bar">
+        <button className="export-btn" onClick={handlePrint}>
+          🖨 {t.exportPrint}
+        </button>
+        <button className="export-btn" onClick={handleShare}>
+          ↗ {t.exportShare}
+        </button>
+        {copied && <span className="export-copied">{t.exportCopied}</span>}
       </div>
 
       <div className="week-tabs">
@@ -48,7 +70,13 @@ export default function ProgramView({ program, state, onEdit, onLog }) {
 
       <div className="days-grid">
         {week.days.map((day) => (
-          <DayCard key={day.dayNo} day={day} unit={state.unit || 'kg'} onLog={onLog} />
+          <DayCard
+            key={day.dayNo}
+            day={day}
+            unit={state.unit || 'kg'}
+            onLog={onLog}
+            onStartSession={onStartSession}
+          />
         ))}
       </div>
     </div>

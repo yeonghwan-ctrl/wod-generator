@@ -129,7 +129,7 @@ function ExerciseRow({ it, unit, onLog }) {
   )
 }
 
-export default function DayCard({ day, unit = 'kg', onLog }) {
+export default function DayCard({ day, unit = 'kg', onLog, onStartSession }) {
   const { t, tx } = useI18n()
   if (!day.items.length) {
     return (
@@ -146,6 +146,12 @@ export default function DayCard({ day, unit = 'kg', onLog }) {
         {t.day(day.dayNo)}
         {day.name && <span className="day-focus">{tx(day, 'name')}</span>}
       </h4>
+
+      {onStartSession && (
+        <button className="start-session-btn" onClick={() => onStartSession(day)}>
+          ▶ {t.startSession}
+        </button>
+      )}
 
       <WarmupPanel warmup={day.warmup} />
 
