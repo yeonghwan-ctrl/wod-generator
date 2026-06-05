@@ -25,7 +25,7 @@ export default function ProgramView({ program, state, onEdit }) {
           ← 수정
         </button>
         <div className="banner-text">
-          <span className="banner-kicker">Work to PR</span>
+          <span className="banner-kicker">Linkup</span>
           <h2>
             {state.cycleWeeks}주 사이클 · 주 {state.daysPerWeek}회
           </h2>

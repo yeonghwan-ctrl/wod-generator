@@ -1,6 +1,6 @@
 {
-  "name": "W2P — 역도/스트렝스 프로그램 생성기",
-  "short_name": "W2P",
+  "name": "Linkup — 역도/스트렝스 프로그램 생성기",
+  "short_name": "Linkup",
   "description": "1RM을 입력하면 퍼센트 기반 주간 훈련 프로그램을 자동으로 생성합니다.",
   "start_url": "/",
   "display": "standalone",

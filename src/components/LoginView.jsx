@@ -30,8 +30,8 @@ export default function LoginView({ auth, onClose }) {
           <div className="brand-logo">
             <img src="/barbell.svg" alt="" width="30" height="30" />
           </div>
-          <h1>W2P</h1>
-          <p>Work to PR · 1RM 기반 주간 훈련 프로그램</p>
+          <h1>Linkup</h1>
+          <p>1RM 기반 주간 훈련 프로그램</p>
         </div>
 
         {!isFirebaseConfigured && (

@@ -43,7 +43,7 @@ export default function OneRMForm({ state, update, setOneRM, toggleLift, reset, 
             className={isTemplate ? 'active' : ''}
             onClick={() => update({ mode: 'template' })}
           >
-            W2P 자동 구성
+            Linkup 자동 구성
             <small>올림픽·풀·스쿼트·보조를 한 세션에 균형 있게</small>
           </button>
           <button

@@ -9,7 +9,7 @@ export default function HomeView({ user, state, onNavigate }) {
   const name =
     user?.displayName || (user?.email ? user.email.split('@')[0] : '') || '운동러'
   const rmCount = Object.values(state.oneRMs || {}).filter((v) => Number(v) > 0).length
-  const modeLabel = state.mode === 'template' ? 'W2P 자동' : '직접 선택'
+  const modeLabel = state.mode === 'template' ? 'Linkup 자동' : '직접 선택'
 
   return (
     <div className="home">
