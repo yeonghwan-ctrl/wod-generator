@@ -150,6 +150,64 @@ select {
   color: var(--accent);
   border-color: var(--brand);
 }
+/* Account dropdown */
+.header-user {
+  position: relative;
+}
+.avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  border-radius: 50%;
+  line-height: 0;
+}
+.acct-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+}
+.acct-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  z-index: 31;
+  min-width: 200px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: var(--shadow-lg);
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+}
+.acct-email {
+  font-size: 0.74rem;
+  color: var(--muted);
+  padding: 8px 10px 6px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 4px;
+  word-break: break-all;
+}
+.acct-item {
+  display: block;
+  text-align: left;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 9px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.acct-item:hover {
+  background: var(--surface-2);
+}
+.acct-item.danger {
+  color: var(--strength);
+}
 .login-cta {
   background: var(--accent-grad);
   color: #fff;
@@ -190,6 +248,14 @@ select {
   left: 16px;
   padding: 5px 9px;
   font-size: 0.74rem;
+}
+.login-privacy {
+  display: block;
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.74rem;
+  color: var(--muted);
+  text-decoration: underline;
 }
 /* ── Bottom navigation ── */
 .bottom-nav {

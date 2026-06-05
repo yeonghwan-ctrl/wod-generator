@@ -60,6 +60,12 @@ export const UI = {
     tagline: '1RM 기반 주간 훈련 프로그램',
     login: '로그인',
     logout: '로그아웃',
+    account: '계정',
+    deleteAccount: '계정 삭제',
+    deleteConfirm:
+      '정말 계정을 삭제할까요?\n클라우드와 이 기기의 모든 데이터(1RM·운동 기록 등)가 영구 삭제되며 되돌릴 수 없습니다.',
+    deleteFailed: '계정 삭제에 실패했습니다. 다시 시도해주세요.',
+    privacy: '개인정보처리방침',
     langSwitch: 'EN', // 누르면 영어로
     footer: '퍼센트 기반 기본 스킴 · 데이터는 이 기기에만 저장됩니다 (localStorage)',
     // 탭
@@ -204,6 +210,12 @@ export const UI = {
     tagline: '1RM-based weekly training program',
     login: 'Login',
     logout: 'Logout',
+    account: 'Account',
+    deleteAccount: 'Delete account',
+    deleteConfirm:
+      'Delete your account?\nAll data (1RMs, workout logs, etc.) in the cloud and on this device will be permanently removed. This cannot be undone.',
+    deleteFailed: 'Failed to delete account. Please try again.',
+    privacy: 'Privacy Policy',
     langSwitch: '한국어', // press to switch back to Korean
     footer: 'Percent-based default schemes · Data is stored on this device only (localStorage)',
     // tabs

@@ -60,6 +60,9 @@ export default function LoginView({ auth, onClose }) {
         )}
 
         <p className="login-note">{t.loginNote}</p>
+        <a className="login-privacy" href="/privacy.html" target="_blank" rel="noopener noreferrer">
+          {t.privacy}
+        </a>
       </div>
     </div>
   )

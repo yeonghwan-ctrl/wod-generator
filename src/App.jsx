@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAthlete } from './store/useAthlete.js'
 import { useWorkoutLog } from './store/useWorkoutLog.js'
-import { useAuth } from './store/useAuth.js'
+import { useAuth, authErrorMessage } from './store/useAuth.js'
 import { useI18n } from './i18n.jsx'
 import { generateProgram } from './logic/generateProgram.js'
 import HomeView from './components/HomeView.jsx'
@@ -22,18 +22,51 @@ const TABS = [
   { id: 'injury', labelKey: 'tabInjury', icon: '🛡️' },
 ]
 
-function UserBadge({ user, onLogout, t }) {
+function UserBadge({ user, onLogout, onDelete, t }) {
+  const [open, setOpen] = useState(false)
   const initial = (user.displayName || user.email || '?').trim().charAt(0).toUpperCase()
   return (
     <div className="header-user">
-      {user.photoURL ? (
-        <img className="avatar" src={user.photoURL} alt="" referrerPolicy="no-referrer" />
-      ) : (
-        <div className="avatar fallback">{initial}</div>
-      )}
-      <button className="logout-btn" onClick={onLogout}>
-        {t.logout}
+      <button
+        className="avatar-btn"
+        onClick={() => setOpen((v) => !v)}
+        aria-label={t.account}
+      >
+        {user.photoURL ? (
+          <img className="avatar" src={user.photoURL} alt="" referrerPolicy="no-referrer" />
+        ) : (
+          <div className="avatar fallback">{initial}</div>
+        )}
       </button>
+      {open && (
+        <>
+          <div className="acct-backdrop" onClick={() => setOpen(false)} />
+          <div className="acct-menu" role="menu">
+            <div className="acct-email">{user.email}</div>
+            <button
+              className="acct-item"
+              onClick={() => {
+                setOpen(false)
+                onLogout()
+              }}
+            >
+              {t.logout}
+            </button>
+            <a className="acct-item" href="/privacy.html" target="_blank" rel="noopener noreferrer">
+              {t.privacy}
+            </a>
+            <button
+              className="acct-item danger"
+              onClick={() => {
+                setOpen(false)
+                onDelete()
+              }}
+            >
+              {t.deleteAccount}
+            </button>
+          </div>
+        </>
+      )}
     </div>
   )
 }
@@ -81,6 +114,16 @@ export default function App() {
     )
   }
 
+  const handleDeleteAccount = async () => {
+    if (!window.confirm(t.deleteConfirm)) return
+    try {
+      await auth.deleteAccount()
+      setView('home')
+    } catch (err) {
+      window.alert(authErrorMessage(err) || t.deleteFailed)
+    }
+  }
+
   const langBtn = (
     <button className="lang-toggle" onClick={toggleLang} aria-label="Change language">
       🌐 {t.langSwitch}
@@ -101,7 +144,12 @@ export default function App() {
           <div className="header-spacer" />
           {langBtn}
           {auth.user ? (
-            <UserBadge user={auth.user} onLogout={auth.logout} t={t} />
+            <UserBadge
+              user={auth.user}
+              onLogout={auth.logout}
+              onDelete={handleDeleteAccount}
+              t={t}
+            />
           ) : (
             <button className="login-cta" onClick={() => setView('login')}>
               {t.login}
