@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { authErrorMessage } from '../store/useAuth.js'
 import { isFirebaseConfigured } from '../firebase.js'
+import { useI18n } from '../i18n.jsx'
 
 export default function LoginView({ auth, onClose }) {
+  const { t, toggle: toggleLang } = useI18n()
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
 
@@ -21,9 +23,17 @@ export default function LoginView({ auth, onClose }) {
   return (
     <div className="login">
       <div className="login-card">
+        <button
+          type="button"
+          className="lang-toggle login-lang"
+          onClick={toggleLang}
+          aria-label="Change language"
+        >
+          🌐 {t.langSwitch}
+        </button>
         {onClose && (
           <button type="button" className="login-skip" onClick={onClose}>
-            건너뛰기 →
+            {t.skip}
           </button>
         )}
         <div className="login-brand">
@@ -31,19 +41,15 @@ export default function LoginView({ auth, onClose }) {
             <img src="/barbell.svg" alt="" width="30" height="30" />
           </div>
           <h1>Linkup</h1>
-          <p>1RM 기반 주간 훈련 프로그램</p>
+          <p>{t.tagline}</p>
         </div>
 
-        {!isFirebaseConfigured && (
-          <p className="login-error">
-            ⚠️ Firebase 설정(.env)이 비어 있습니다. 키를 등록해야 로그인이 동작합니다.
-          </p>
-        )}
+        {!isFirebaseConfigured && <p className="login-error">{t.firebaseWarn}</p>}
 
         <div className="social-buttons">
           <button className="social-btn social-google" disabled={busy} onClick={signIn}>
             <span className="ico" style={{ color: '#4285F4' }}>G</span>
-            {busy ? '로그인 중…' : '구글로 계속하기'}
+            {busy ? t.signingIn : t.continueGoogle}
           </button>
         </div>
 
@@ -53,9 +59,7 @@ export default function LoginView({ auth, onClose }) {
           </p>
         )}
 
-        <p className="login-note">
-          로그인은 선택 사항입니다. 로그인하면 여러 기기에서 기록을 이어서 사용할 수 있어요.
-        </p>
+        <p className="login-note">{t.loginNote}</p>
       </div>
     </div>
   )

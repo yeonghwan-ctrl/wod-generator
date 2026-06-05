@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import DayCard from './DayCard.jsx'
+import { useI18n } from '../i18n.jsx'
 
 export default function ProgramView({ program, state, onEdit }) {
+  const { t } = useI18n()
   const [activeWeek, setActiveWeek] = useState(0)
 
   const hasAnyLift = state.selectedLiftIds.length > 0
   if (!hasAnyLift) {
     return (
       <div className="empty-state">
-        <p>선택된 종목이 없습니다.</p>
+        <p>{t.noLifts}</p>
         <button className="btn-primary" onClick={onEdit}>
-          입력 화면으로
+          {t.toInput}
         </button>
       </div>
     )
@@ -22,14 +24,12 @@ export default function ProgramView({ program, state, onEdit }) {
     <div className="program">
       <div className="program-banner">
         <button className="btn-ghost banner-edit" onClick={onEdit}>
-          ← 수정
+          {t.edit}
         </button>
         <div className="banner-text">
           <span className="banner-kicker">Linkup</span>
-          <h2>
-            {state.cycleWeeks}주 사이클 · 주 {state.daysPerWeek}회
-          </h2>
-          <p>1RM 대비 퍼센트 기반 프로그램</p>
+          <h2>{t.cycleSummary(state.cycleWeeks, state.daysPerWeek)}</h2>
+          <p>{t.programSub}</p>
         </div>
       </div>
 
@@ -40,7 +40,8 @@ export default function ProgramView({ program, state, onEdit }) {
             className={i === activeWeek ? 'active' : ''}
             onClick={() => setActiveWeek(i)}
           >
-            {w.weekNo}주차{w.note && <span className="badge">{w.note}</span>}
+            {t.weekTab(w.weekNo)}
+            {w.note && <span className="badge">{w.note === 'deload' ? t.deload : w.note}</span>}
           </button>
         ))}
       </div>

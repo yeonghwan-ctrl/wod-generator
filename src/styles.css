@@ -164,6 +164,33 @@ select {
 .login-cta:active {
   transform: scale(0.97);
 }
+/* ── Language toggle ── */
+.lang-toggle {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  color: var(--muted);
+  border-radius: 9px;
+  padding: 7px 11px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.lang-toggle:hover {
+  color: var(--accent);
+  border-color: var(--brand);
+}
+.lang-toggle:active {
+  transform: scale(0.97);
+}
+.login-lang {
+  position: absolute;
+  top: 14px;
+  left: 16px;
+  padding: 5px 9px;
+  font-size: 0.74rem;
+}
 /* ── Bottom navigation ── */
 .bottom-nav {
   position: fixed;

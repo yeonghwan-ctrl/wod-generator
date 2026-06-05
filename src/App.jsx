@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useAthlete } from './store/useAthlete.js'
 import { useAuth } from './store/useAuth.js'
+import { useI18n } from './i18n.jsx'
 import { generateProgram } from './logic/generateProgram.js'
 import HomeView from './components/HomeView.jsx'
 import OneRMForm from './components/OneRMForm.jsx'
@@ -10,14 +11,14 @@ import InjuryView from './components/InjuryView.jsx'
 import LoginView from './components/LoginView.jsx'
 
 const TABS = [
-  { id: 'home', label: '홈', icon: '🏠' },
-  { id: 'input', label: '입력', icon: '🏋️' },
-  { id: 'program', label: '프로그램', icon: '📋' },
-  { id: 'stretching', label: '스트레칭', icon: '🧘' },
-  { id: 'injury', label: '부상예방', icon: '🛡️' },
+  { id: 'home', labelKey: 'tabHome', icon: '🏠' },
+  { id: 'input', labelKey: 'tabInput', icon: '🏋️' },
+  { id: 'program', labelKey: 'tabProgram', icon: '📋' },
+  { id: 'stretching', labelKey: 'tabStretching', icon: '🧘' },
+  { id: 'injury', labelKey: 'tabInjury', icon: '🛡️' },
 ]
 
-function UserBadge({ user, onLogout }) {
+function UserBadge({ user, onLogout, t }) {
   const initial = (user.displayName || user.email || '?').trim().charAt(0).toUpperCase()
   return (
     <div className="header-user">
@@ -27,13 +28,14 @@ function UserBadge({ user, onLogout }) {
         <div className="avatar fallback">{initial}</div>
       )}
       <button className="logout-btn" onClick={onLogout}>
-        로그아웃
+        {t.logout}
       </button>
     </div>
   )
 }
 
 export default function App() {
+  const { t, toggle: toggleLang } = useI18n()
   const auth = useAuth()
   const { state, update, setOneRM, toggleLift, reset } = useAthlete(auth.user)
   const [view, setView] = useState('home') // TABS 의 id (+ 'login')
@@ -61,6 +63,12 @@ export default function App() {
     return <LoginView auth={auth} onClose={() => setView('home')} />
   }
 
+  const langBtn = (
+    <button className="lang-toggle" onClick={toggleLang} aria-label="Change language">
+      🌐 {t.langSwitch}
+    </button>
+  )
+
   return (
     <div className="app">
       <header className="app-header">
@@ -70,14 +78,15 @@ export default function App() {
           </div>
           <div>
             <h1>Linkup</h1>
-            <p className="tagline">1RM 기반 주간 훈련 프로그램</p>
+            <p className="tagline">{t.tagline}</p>
           </div>
           <div className="header-spacer" />
+          {langBtn}
           {auth.user ? (
-            <UserBadge user={auth.user} onLogout={auth.logout} />
+            <UserBadge user={auth.user} onLogout={auth.logout} t={t} />
           ) : (
             <button className="login-cta" onClick={() => setView('login')}>
-              로그인
+              {t.login}
             </button>
           )}
         </div>
@@ -104,20 +113,18 @@ export default function App() {
         {view === 'injury' && <InjuryView />}
       </main>
 
-      <footer className="app-footer">
-        퍼센트 기반 기본 스킴 · 데이터는 이 기기에만 저장됩니다 (localStorage)
-      </footer>
+      <footer className="app-footer">{t.footer}</footer>
 
       <nav className="bottom-nav">
         <div className="bottom-nav-inner">
-          {TABS.map((t) => (
+          {TABS.map((tab) => (
             <button
-              key={t.id}
-              className={view === t.id ? 'active' : ''}
-              onClick={() => setView(t.id)}
+              key={tab.id}
+              className={view === tab.id ? 'active' : ''}
+              onClick={() => setView(tab.id)}
             >
-              <span className="nav-icon">{t.icon}</span>
-              <span className="nav-label">{t.label}</span>
+              <span className="nav-icon">{tab.icon}</span>
+              <span className="nav-label">{t[tab.labelKey]}</span>
             </button>
           ))}
         </div>

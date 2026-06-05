@@ -7,14 +7,15 @@
 
 export const LIFTS = [
   // ───────────── 올림픽 풀 동작(주 종목) ─────────────
-  { id: 'snatch', label: '스내치', short: 'SN', category: 'olympic', scheme: 'olympic' },
-  { id: 'clean', label: '클린', short: 'CL', category: 'olympic', scheme: 'olympic' },
-  { id: 'cleanAndJerk', label: '클린 앤 저크', short: 'C&J', category: 'olympic', scheme: 'olympic' },
+  { id: 'snatch', label: '스내치', labelEn: 'Snatch', short: 'SN', category: 'olympic', scheme: 'olympic' },
+  { id: 'clean', label: '클린', labelEn: 'Clean', short: 'CL', category: 'olympic', scheme: 'olympic' },
+  { id: 'cleanAndJerk', label: '클린 앤 저크', labelEn: 'Clean & Jerk', short: 'C&J', category: 'olympic', scheme: 'olympic' },
 
   // ───────────── 파워 / 포지셔널 / 테크닉 변형 ─────────────
   {
     id: 'powerSnatch',
     label: '파워 스내치',
+    labelEn: 'Power Snatch',
     short: 'P.SN',
     category: 'technique',
     scheme: 'olympicPower',
@@ -23,6 +24,7 @@ export const LIFTS = [
   {
     id: 'powerClean',
     label: '파워 클린',
+    labelEn: 'Power Clean',
     short: 'P.CL',
     category: 'technique',
     scheme: 'olympicPower',
@@ -31,6 +33,7 @@ export const LIFTS = [
   {
     id: 'hangSnatch',
     label: '행 스내치 (무릎)',
+    labelEn: 'Hang Snatch (knee)',
     short: 'H.SN',
     category: 'technique',
     scheme: 'technique',
@@ -39,6 +42,7 @@ export const LIFTS = [
   {
     id: 'hangClean',
     label: '행 클린 (무릎)',
+    labelEn: 'Hang Clean (knee)',
     short: 'H.CL',
     category: 'technique',
     scheme: 'technique',
@@ -47,6 +51,7 @@ export const LIFTS = [
   {
     id: 'boxSnatch',
     label: '박스 스내치 (블록)',
+    labelEn: 'Box Snatch (blocks)',
     short: 'BX.SN',
     category: 'technique',
     scheme: 'technique',
@@ -55,6 +60,7 @@ export const LIFTS = [
   {
     id: 'boxClean',
     label: '박스 클린 (블록)',
+    labelEn: 'Box Clean (blocks)',
     short: 'BX.CL',
     category: 'technique',
     scheme: 'technique',
@@ -63,6 +69,7 @@ export const LIFTS = [
   {
     id: 'snatchBalance',
     label: '스내치 밸런스',
+    labelEn: 'Snatch Balance',
     short: 'SN.BAL',
     category: 'technique',
     scheme: 'technique',
@@ -71,6 +78,7 @@ export const LIFTS = [
   {
     id: 'overheadSquat',
     label: '오버헤드 스쿼트',
+    labelEn: 'Overhead Squat',
     short: 'OHS',
     category: 'technique',
     scheme: 'technique',
@@ -79,6 +87,7 @@ export const LIFTS = [
   {
     id: 'splitJerk',
     label: '스플릿 저크',
+    labelEn: 'Split Jerk',
     short: 'S.JK',
     category: 'technique',
     scheme: 'olympic',
@@ -87,6 +96,7 @@ export const LIFTS = [
   {
     id: 'pushPress',
     label: '푸시 프레스',
+    labelEn: 'Push Press',
     short: 'PP',
     category: 'technique',
     scheme: 'strengthUpper',
@@ -97,6 +107,7 @@ export const LIFTS = [
   {
     id: 'snatchPull',
     label: '스내치 풀',
+    labelEn: 'Snatch Pull',
     short: 'SN.PL',
     category: 'pull',
     scheme: 'pull',
@@ -105,6 +116,7 @@ export const LIFTS = [
   {
     id: 'cleanPull',
     label: '클린 풀',
+    labelEn: 'Clean Pull',
     short: 'CL.PL',
     category: 'pull',
     scheme: 'pull',
@@ -113,6 +125,7 @@ export const LIFTS = [
   {
     id: 'snatchHighPull',
     label: '스내치 하이 풀',
+    labelEn: 'Snatch High Pull',
     short: 'SN.HP',
     category: 'pull',
     scheme: 'highPull',
@@ -121,6 +134,7 @@ export const LIFTS = [
   {
     id: 'cleanHighPull',
     label: '클린 하이 풀',
+    labelEn: 'Clean High Pull',
     short: 'CL.HP',
     category: 'pull',
     scheme: 'highPull',
@@ -129,6 +143,7 @@ export const LIFTS = [
   {
     id: 'snatchDeadlift',
     label: '스내치 데드리프트',
+    labelEn: 'Snatch Deadlift',
     short: 'SN.DL',
     category: 'pull',
     scheme: 'deadliftVariant',
@@ -137,6 +152,7 @@ export const LIFTS = [
   {
     id: 'cleanDeadlift',
     label: '클린 데드리프트',
+    labelEn: 'Clean Deadlift',
     short: 'CL.DL',
     category: 'pull',
     scheme: 'deadliftVariant',
@@ -144,10 +160,11 @@ export const LIFTS = [
   },
 
   // ───────────── 스트렝스 (스쿼트 / 프레스 / 데드) ─────────────
-  { id: 'backSquat', label: '백 스쿼트', short: 'BS', category: 'strength', scheme: 'strength' },
+  { id: 'backSquat', label: '백 스쿼트', labelEn: 'Back Squat', short: 'BS', category: 'strength', scheme: 'strength' },
   {
     id: 'frontSquat',
     label: '프론트 스쿼트',
+    labelEn: 'Front Squat',
     short: 'FS',
     category: 'strength',
     scheme: 'strength',
@@ -156,19 +173,20 @@ export const LIFTS = [
   {
     id: 'pauseFrontSquat',
     label: '포즈 프론트 스쿼트',
+    labelEn: 'Pause Front Squat',
     short: 'P.FS',
     category: 'strength',
     scheme: 'strength',
     percentBasisOf: { lift: 'backSquat', ratio: 0.75 },
   },
-  { id: 'deadlift', label: '데드리프트', short: 'DL', category: 'strength', scheme: 'strength' },
-  { id: 'benchPress', label: '벤치 프레스', short: 'BP', category: 'strength', scheme: 'strength' },
-  { id: 'overheadPress', label: '오버헤드 프레스', short: 'OHP', category: 'strength', scheme: 'strengthUpper' },
+  { id: 'deadlift', label: '데드리프트', labelEn: 'Deadlift', short: 'DL', category: 'strength', scheme: 'strength' },
+  { id: 'benchPress', label: '벤치 프레스', labelEn: 'Bench Press', short: 'BP', category: 'strength', scheme: 'strength' },
+  { id: 'overheadPress', label: '오버헤드 프레스', labelEn: 'Overhead Press', short: 'OHP', category: 'strength', scheme: 'strengthUpper' },
 
   // ───────────── 보조 운동 (퍼센트 미적용, 세트×렙만) ─────────────
-  { id: 'pullUp', label: '풀업', short: 'PU', category: 'accessory', scheme: 'accessory' },
-  { id: 'lunge', label: '런지', short: 'LG', category: 'accessory', scheme: 'accessory' },
-  { id: 'core', label: '코어(플랭크/시트업)', short: 'CORE', category: 'accessory', scheme: 'accessory' },
+  { id: 'pullUp', label: '풀업', labelEn: 'Pull-up', short: 'PU', category: 'accessory', scheme: 'accessory' },
+  { id: 'lunge', label: '런지', labelEn: 'Lunge', short: 'LG', category: 'accessory', scheme: 'accessory' },
+  { id: 'core', label: '코어(플랭크/시트업)', labelEn: 'Core (plank/sit-up)', short: 'CORE', category: 'accessory', scheme: 'accessory' },
 ]
 
 export const CATEGORY_LABEL = {
@@ -177,6 +195,14 @@ export const CATEGORY_LABEL = {
   pull: '풀 / 데드리프트 변형',
   strength: '스트렝스 (스쿼트·프레스)',
   accessory: '보조 운동',
+}
+
+export const CATEGORY_LABEL_EN = {
+  olympic: 'Olympic Lifts (main)',
+  technique: 'Technique / Positional',
+  pull: 'Pulls / Deadlift Variations',
+  strength: 'Strength (Squat · Press)',
+  accessory: 'Accessories',
 }
 
 export const CATEGORY_ORDER = ['olympic', 'technique', 'pull', 'strength', 'accessory']

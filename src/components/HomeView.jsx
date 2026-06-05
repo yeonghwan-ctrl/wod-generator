@@ -1,48 +1,56 @@
+import { useI18n } from '../i18n.jsx'
+
 const MENU = [
-  { id: 'program', icon: '📋', title: '프로그램', desc: '주간 훈련 + 워밍업 루틴' },
-  { id: 'stretching', icon: '🧘', title: '스트레칭', desc: '운동 전·후 가동성' },
-  { id: 'injury', icon: '🛡️', title: '부상예방', desc: '부위별 예방 가이드' },
-  { id: 'input', icon: '🏋️', title: '1RM 입력', desc: '기록·설정 수정' },
+  { id: 'program', icon: '📋', titleKey: 'menuProgram', descKey: 'menuProgramDesc' },
+  { id: 'stretching', icon: '🧘', titleKey: 'menuStretching', descKey: 'menuStretchingDesc' },
+  { id: 'injury', icon: '🛡️', titleKey: 'menuInjury', descKey: 'menuInjuryDesc' },
+  { id: 'input', icon: '🏋️', titleKey: 'menuInput', descKey: 'menuInputDesc' },
 ]
 
 export default function HomeView({ user, state, onNavigate }) {
+  const { t } = useI18n()
   const name =
-    user?.displayName || (user?.email ? user.email.split('@')[0] : '') || '운동러'
+    user?.displayName || (user?.email ? user.email.split('@')[0] : '') || t.defaultName
   const rmCount = Object.values(state.oneRMs || {}).filter((v) => Number(v) > 0).length
-  const modeLabel = state.mode === 'template' ? 'Linkup 자동' : '직접 선택'
+  const modeLabel = state.mode === 'template' ? t.modeAuto : t.modeCustom
 
   return (
     <div className="home">
       <section className="home-hero">
-        <p className="home-hello">반가워요 👋</p>
-        <h2 className="home-name">{name}님</h2>
+        <p className="home-hello">{t.hello}</p>
+        <h2 className="home-name">
+          {name}
+          {t.nameSuffix}
+        </h2>
         <button className="home-start" onClick={() => onNavigate('program')}>
-          오늘 훈련 바로 시작 →
+          {t.startToday}
         </button>
       </section>
 
       <div className="home-stats">
         <div className="stat-card">
           <div className="stat-value">{state.daysPerWeek}</div>
-          <div className="stat-label">주 훈련 횟수</div>
+          <div className="stat-label">{t.statDays}</div>
         </div>
         <div className="stat-card">
           <div className="stat-value">{state.cycleWeeks}</div>
-          <div className="stat-label">사이클(주)</div>
+          <div className="stat-label">{t.statCycle}</div>
         </div>
         <div className="stat-card">
           <div className="stat-value">{rmCount}</div>
-          <div className="stat-label">입력된 1RM</div>
+          <div className="stat-label">{t.statRm}</div>
         </div>
       </div>
 
-      <p className="home-section-title">메뉴 · {modeLabel}</p>
+      <p className="home-section-title">
+        {t.menu} · {modeLabel}
+      </p>
       <div className="menu-grid">
         {MENU.map((m) => (
           <button key={m.id} className="menu-card" onClick={() => onNavigate(m.id)}>
             <span className="menu-icon">{m.icon}</span>
-            <h3>{m.title}</h3>
-            <p>{m.desc}</p>
+            <h3>{t[m.titleKey]}</h3>
+            <p>{t[m.descKey]}</p>
           </button>
         ))}
       </div>

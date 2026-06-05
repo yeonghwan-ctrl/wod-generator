@@ -5,26 +5,32 @@
 export const SESSIONS = {
   snatchDay: {
     name: '스내치 데이',
+    nameEn: 'Snatch Day',
     lifts: ['snatchBalance', 'snatch', 'snatchPull', 'overheadSquat', 'core'],
   },
   cleanJerkDay: {
     name: '클린 앤 저크 데이',
+    nameEn: 'Clean & Jerk Day',
     lifts: ['hangClean', 'cleanAndJerk', 'cleanPull', 'frontSquat', 'pullUp'],
   },
   powerDay: {
     name: '파워 / 스피드 데이',
+    nameEn: 'Power / Speed Day',
     lifts: ['powerSnatch', 'powerClean', 'pushPress', 'core'],
   },
   squatDay: {
     name: '스트렝스 데이',
+    nameEn: 'Strength Day',
     lifts: ['backSquat', 'deadlift', 'benchPress', 'pullUp'],
   },
   snatchTechDay: {
     name: '스내치 테크닉 데이',
+    nameEn: 'Snatch Technique Day',
     lifts: ['boxSnatch', 'hangSnatch', 'snatchHighPull', 'overheadPress'],
   },
   cleanTechDay: {
     name: '클린 테크닉 데이',
+    nameEn: 'Clean Technique Day',
     lifts: ['boxClean', 'splitJerk', 'cleanDeadlift', 'pauseFrontSquat', 'core'],
   },
 }

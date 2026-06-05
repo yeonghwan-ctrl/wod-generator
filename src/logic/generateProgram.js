@@ -29,6 +29,7 @@ function buildItem(liftId, weekIndex, cycleWeeks, oneRMs, increment) {
   return {
     liftId,
     label: lift.label,
+    labelEn: lift.labelEn,
     category: lift.category,
     sets: weekScheme.sets,
     reps: weekScheme.reps,
@@ -52,6 +53,7 @@ function buildDayDefs({ mode, daysPerWeek, selectedLiftIds }) {
   if (mode === 'template') {
     return getWeeklySplit(daysPerWeek).map((sessionId) => ({
       name: SESSIONS[sessionId].name,
+      nameEn: SESSIONS[sessionId].nameEn,
       liftIds: SESSIONS[sessionId].lifts,
       warmup: WARMUPS[sessionId] || null,
     }))
@@ -82,10 +84,11 @@ export function generateProgram({
     const days = dayDefs.map((def, di) => ({
       dayNo: di + 1,
       name: def.name,
+      nameEn: def.nameEn,
       warmup: def.warmup,
       items: def.liftIds.map((id) => buildItem(id, w, cycleWeeks, oneRMs, increment)).filter(Boolean),
     }))
-    weeks.push({ weekNo: w + 1, note: w === cycleWeeks - 1 ? '디로드' : '', days })
+    weeks.push({ weekNo: w + 1, note: w === cycleWeeks - 1 ? 'deload' : '', days })
   }
 
   return { weeks }
