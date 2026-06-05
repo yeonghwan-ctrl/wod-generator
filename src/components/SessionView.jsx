@@ -1,4 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { LIFT_BY_ID } from '../data/lifts.js'
+import { liftEmbedUrl, liftVideoUrl } from '../logic/videoLinks.js'
 import { useI18n } from '../i18n.jsx'
 
 const STORAGE = 'linkup.session.v1'
@@ -50,12 +52,13 @@ function beep() {
 }
 
 export default function SessionView({ day, unit = 'kg', onClose, onLog }) {
-  const { t, tx } = useI18n()
+  const { t, tx, lang } = useI18n()
   const items = day.items || []
   const key = useMemo(() => sessionKey(day), [day])
 
   const [checks, setChecks] = useState(() => loadChecks(key, items))
   const [logged, setLogged] = useState(() => new Set())
+  const [openVideo, setOpenVideo] = useState(null) // 자세 영상 펼친 종목 liftId
   const [restTotal, setRestTotal] = useState(90)
   const [restLeft, setRestLeft] = useState(90)
   const [running, setRunning] = useState(false)
@@ -147,46 +150,81 @@ export default function SessionView({ day, unit = 'kg', onClose, onLog }) {
       <div className="session-body">
         {allDone && <p className="session-alldone">{t.sessAllDone}</p>}
 
-        {items.map((it, ei) => (
-          <div className={`session-ex cat-${it.category}`} key={it.liftId}>
-            <div className="session-ex-head">
-              <div className="session-ex-info">
-                <span className="session-ex-name">{tx(it, 'label')}</span>
-                <span className="session-ex-scheme">
-                  {it.sets} × {it.reps}
-                  {it.percent != null && <span className="ex-pct"> @ {it.percent}%</span>}
-                  {it.weight != null && (
-                    <strong className="session-ex-weight">
-                      {' '}
-                      · {it.weight}
-                      {unit}
-                    </strong>
+        {items.map((it, ei) => {
+          const label = tx(it, 'label')
+          const videoId = LIFT_BY_ID[it.liftId]?.video
+          const isVideoOpen = openVideo === it.liftId
+          return (
+            <div className={`session-ex cat-${it.category}`} key={it.liftId}>
+              <div className="session-ex-head">
+                <div className="session-ex-info">
+                  <span className="session-ex-name">{label}</span>
+                  <span className="session-ex-scheme">
+                    {it.sets} × {it.reps}
+                    {it.percent != null && <span className="ex-pct"> @ {it.percent}%</span>}
+                    {it.weight != null && (
+                      <strong className="session-ex-weight">
+                        {' '}
+                        · {it.weight}
+                        {unit}
+                      </strong>
+                    )}
+                  </span>
+                  {videoId ? (
+                    <button
+                      className={`session-ex-video ${isVideoOpen ? 'open' : ''}`}
+                      onClick={() => setOpenVideo((o) => (o === it.liftId ? null : it.liftId))}
+                    >
+                      {isVideoOpen ? '▾' : '▶'} {t.formVideo}
+                    </button>
+                  ) : (
+                    <a
+                      className="session-ex-video"
+                      href={liftVideoUrl(label, lang)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      ▶ {t.formVideo}
+                    </a>
                   )}
-                </span>
+                </div>
+                {it.weight != null && (
+                  <button
+                    className={`session-log-btn ${logged.has(it.liftId) ? 'done' : ''}`}
+                    onClick={() => logExercise(it)}
+                    disabled={logged.has(it.liftId)}
+                  >
+                    {logged.has(it.liftId) ? t.sessLogged : t.logBtn}
+                  </button>
+                )}
               </div>
-              {it.weight != null && (
-                <button
-                  className={`session-log-btn ${logged.has(it.liftId) ? 'done' : ''}`}
-                  onClick={() => logExercise(it)}
-                  disabled={logged.has(it.liftId)}
-                >
-                  {logged.has(it.liftId) ? t.sessLogged : t.logBtn}
-                </button>
+
+              {isVideoOpen && videoId && (
+                <div className="session-video">
+                  <iframe
+                    src={liftEmbedUrl(videoId)}
+                    title={label}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
+                </div>
               )}
+
+              <div className="set-pills">
+                {Array.from({ length: it.sets || 0 }, (_, si) => (
+                  <button
+                    key={si}
+                    className={`set-pill ${checks[ei]?.[si] ? 'done' : ''}`}
+                    onClick={() => toggleSet(ei, si)}
+                  >
+                    {si + 1}
+                  </button>
+                ))}
+              </div>
             </div>
-            <div className="set-pills">
-              {Array.from({ length: it.sets || 0 }, (_, si) => (
-                <button
-                  key={si}
-                  className={`set-pill ${checks[ei]?.[si] ? 'done' : ''}`}
-                  onClick={() => toggleSet(ei, si)}
-                >
-                  {si + 1}
-                </button>
-              ))}
-            </div>
-          </div>
-        ))}
+          )
+        })}
       </div>
 
       {/* 휴식 타이머 (하단 고정) */}

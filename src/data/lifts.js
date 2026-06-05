@@ -9,7 +9,7 @@ export const LIFTS = [
   // ───────────── 올림픽 풀 동작(주 종목) ─────────────
   { id: 'snatch', label: '스내치', labelEn: 'Snatch', short: 'SN', category: 'olympic', scheme: 'olympic' },
   { id: 'clean', label: '클린', labelEn: 'Clean', short: 'CL', category: 'olympic', scheme: 'olympic' },
-  { id: 'cleanAndJerk', label: '클린 앤 저크', labelEn: 'Clean & Jerk', short: 'C&J', category: 'olympic', scheme: 'olympic' },
+  { id: 'cleanAndJerk', label: '클린 앤 저크', labelEn: 'Clean & Jerk', short: 'C&J', category: 'olympic', scheme: 'olympic', video: 'PjY1rH4_MOA' },
 
   // ───────────── 파워 / 포지셔널 / 테크닉 변형 ─────────────
   {

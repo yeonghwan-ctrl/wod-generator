@@ -190,6 +190,7 @@ export const UI = {
     sessLogged: '기록됨 ✓',
     sessSet: '세트',
     sessClose: '닫기',
+    formVideo: '자세 영상',
     // 내보내기 / 공유
     exportTitle: '내보내기',
     exportPrint: '인쇄 / PDF',
@@ -341,6 +342,7 @@ export const UI = {
     sessLogged: 'Logged ✓',
     sessSet: 'Set',
     sessClose: 'Close',
+    formVideo: 'Form video',
     // export / share
     exportTitle: 'Export',
     exportPrint: 'Print / PDF',
