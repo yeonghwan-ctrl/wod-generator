@@ -2,6 +2,7 @@ import { useI18n } from '../i18n.jsx'
 
 const MENU = [
   { id: 'program', icon: '📋', titleKey: 'menuProgram', descKey: 'menuProgramDesc' },
+  { id: 'coach', icon: '🤖', titleKey: 'menuCoach', descKey: 'menuCoachDesc' },
   { id: 'log', icon: '📈', titleKey: 'menuLog', descKey: 'menuLogDesc' },
   { id: 'stretching', icon: '🧘', titleKey: 'menuStretching', descKey: 'menuStretchingDesc' },
   { id: 'injury', icon: '🛡️', titleKey: 'menuInjury', descKey: 'menuInjuryDesc' },

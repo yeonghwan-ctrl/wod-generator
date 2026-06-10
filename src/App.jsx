@@ -13,6 +13,7 @@ import InjuryView from './components/InjuryView.jsx'
 import LogView from './components/LogView.jsx'
 import SessionView from './components/SessionView.jsx'
 import LoginView from './components/LoginView.jsx'
+import CoachView from './components/CoachView.jsx'
 
 const TABS = [
   { id: 'home', labelKey: 'tabHome', icon: '🏠' },
@@ -197,6 +198,7 @@ export default function App() {
           />
         )}
         {view === 'log' && <LogView log={log} state={state} setOneRM={setOneRM} />}
+        {view === 'coach' && <CoachView state={state} entries={log.entries} />}
         {view === 'stretching' && <StretchingView />}
         {view === 'injury' && <InjuryView />}
       </main>

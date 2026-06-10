@@ -5,6 +5,7 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth, setPersistence, browserLocalPersistence } from 'firebase/auth'
 import { getFirestore } from 'firebase/firestore'
+import { getFunctions } from 'firebase/functions'
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -20,18 +21,21 @@ export const isFirebaseConfigured = Boolean(firebaseConfig.apiKey && firebaseCon
 
 let auth = null
 let db = null
+let functions = null
 if (isFirebaseConfigured) {
   try {
     const app = initializeApp(firebaseConfig)
     auth = getAuth(app)
     db = getFirestore(app) // 사용자별 데이터(1RM·설정) 저장용
+    functions = getFunctions(app, 'asia-northeast3') // AI 코치 프록시(Cloud Functions)
     // 로그인 상태를 브라우저에 유지 (새로고침해도 로그인 유지)
     setPersistence(auth, browserLocalPersistence).catch(() => {})
   } catch (err) {
     console.error('Firebase 초기화 실패:', err)
     auth = null
     db = null
+    functions = null
   }
 }
 
-export { auth, db }
+export { auth, db, functions }
