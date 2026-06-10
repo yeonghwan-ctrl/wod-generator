@@ -153,7 +153,8 @@ export const UI = {
     firebaseWarn: '⚠️ Firebase 설정(.env)이 비어 있습니다. 키를 등록해야 로그인이 동작합니다.',
     signingIn: '로그인 중…',
     continueGoogle: '구글로 계속하기',
-    loginNote: '로그인은 선택 사항입니다. 로그인하면 여러 기기에서 기록을 이어서 사용할 수 있어요.',
+    loginNote: '로그인하면 여러 기기에서 기록을 이어서 사용할 수 있어요.',
+    loading: '불러오는 중…',
     // 운동 기록(LogView / 빠른 기록)
     logTitle: '운동 기록',
     logAdd: '기록 추가',
@@ -305,7 +306,8 @@ export const UI = {
     firebaseWarn: '⚠️ Firebase config (.env) is empty. Add your keys to enable login.',
     signingIn: 'Signing in…',
     continueGoogle: 'Continue with Google',
-    loginNote: 'Login is optional. Sign in to keep your records across multiple devices.',
+    loginNote: 'Sign in to keep your records across multiple devices.',
+    loading: 'Loading…',
     // workout log (LogView / quick log)
     logTitle: 'Workout Log',
     logAdd: 'Add entry',

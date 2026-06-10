@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useAthlete } from './store/useAthlete.js'
 import { useWorkoutLog } from './store/useWorkoutLog.js'
 import { useAuth, authErrorMessage } from './store/useAuth.js'
+import { isFirebaseConfigured } from './firebase.js'
 import { useI18n } from './i18n.jsx'
 import { generateProgram } from './logic/generateProgram.js'
 import HomeView from './components/HomeView.jsx'
@@ -76,13 +77,16 @@ export default function App() {
   const auth = useAuth()
   const { state, update, setOneRM, toggleLift, reset } = useAthlete(auth.user)
   const log = useWorkoutLog(auth.user)
-  const [view, setView] = useState('home') // TABS 의 id (+ 'login')
+  const [view, setView] = useState('home') // TABS 의 id
   const [session, setSession] = useState(null) // 진행 중인 세션(요일 객체) 또는 null
 
-  // 로그인 화면에서 로그인에 성공하면 자동으로 홈으로 복귀
+  // 로그아웃/계정 삭제로 비로그인 상태가 되면 다음 로그인 때 홈에서 시작
   useEffect(() => {
-    if (view === 'login' && auth.user) setView('home')
-  }, [view, auth.user])
+    if (!auth.user) {
+      setView('home')
+      setSession(null)
+    }
+  }, [auth.user])
 
   const program = useMemo(
     () =>
@@ -97,9 +101,24 @@ export default function App() {
     [state],
   )
 
-  // 로그인은 선택 사항 — 로그인 화면은 헤더 버튼으로 진입(건너뛰기 가능)
-  if (view === 'login') {
-    return <LoginView auth={auth} onClose={() => setView('home')} />
+  // 로그인 필수 — 인증 상태 확인 중에는 로딩 화면, 비로그인 시 로그인 화면만 표시.
+  // Firebase 미설정 환경(env 없는 로컬 개발)은 로그인이 불가능하므로 게이트를 건너뜀.
+  if (isFirebaseConfigured) {
+    if (auth.loading) {
+      return (
+        <div className="splash">
+          <div className="splash-inner">
+            <div className="brand-logo">
+              <img src="/barbell.svg" alt="" width="34" height="34" />
+            </div>
+            <p>{t.loading}</p>
+          </div>
+        </div>
+      )
+    }
+    if (!auth.user) {
+      return <LoginView auth={auth} />
+    }
   }
 
   // 세션 진행 모드 — 풀스크린 takeover
@@ -143,17 +162,13 @@ export default function App() {
           </div>
           <div className="header-spacer" />
           {langBtn}
-          {auth.user ? (
+          {auth.user && (
             <UserBadge
               user={auth.user}
               onLogout={auth.logout}
               onDelete={handleDeleteAccount}
               t={t}
             />
-          ) : (
-            <button className="login-cta" onClick={() => setView('login')}>
-              {t.login}
-            </button>
           )}
         </div>
       </header>
